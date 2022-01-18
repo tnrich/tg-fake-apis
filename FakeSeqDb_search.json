@@ -1,0 +1,14 @@
+{
+    "pageLength": 25,
+    "seqs": [
+        {
+            "title": "someSeq",
+            "uuid": "w2f343g"
+        },
+        {
+            "title": "anotherSeq",
+            "uuid": "28992hf2"
+        }
+    ],
+    "allResults": 77
+}
