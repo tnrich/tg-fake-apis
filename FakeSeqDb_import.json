@@ -1,0 +1,33 @@
+{
+    "description": "Your description here",
+    "tags": [
+        {
+            "name": "topSecret"
+        },
+        {
+            "name": "High Value",
+            "color": "blue"
+        }
+    ],
+    "externalReferenceSystem": "fakedb",
+    "externalReferenceId": "289hf9h",
+    "externalReferenceType": "DNA_SEQUENCE",
+    "externalReferenceUrl": "https://fakedb.org/DNA_SEQUENCE/289hf9h",
+    "name": "plasmid1",
+    "sequence": "gatagacagagagatagacagagagatagacagagagatagacagagagatagacagagagatagacagagagatagacagaga",
+    "circular": true,
+    "features": [
+        {
+            "start": 40,
+            "end": 50,
+            "name": "feat1"
+        }
+    ],
+    "parse": [
+        {
+            "start": 11,
+            "end": 43,
+            "name": "part1"
+        }
+    ]
+}
