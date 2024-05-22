@@ -1,0 +1,315 @@
+{
+  "id": "d339c75e-3d84-4901-8810-a4de3868bff7",
+  "name": "FakeSeqDepot",
+  "subtype": "DNA_SEQUENCE",
+  "includeUserIdHeader": true,
+  "includeUsernameHeader": true,
+  "uniqueIdentifier": "fakeseqdb",
+  "includeLabIdHeader": true,
+  "includeAuthTokenHeader": true,
+  "integrationTypeCode": "IMPORT",
+  "integrationHeaders": [],
+  "integrationEndpoints": [
+    {
+      "endpointTypeCode": "IMPORT__SEARCH_FORMAT",
+      "externalRecordType": null,
+      "url": "node-red://fakeseqdb/import__search_format",
+      "integrationEndpointHeaders": []
+    },
+    {
+      "endpointTypeCode": "IMPORT__SEARCH",
+      "externalRecordType": null,
+      "url": "node-red://fakeseqdb/import__search",
+      "integrationEndpointHeaders": []
+    },
+    {
+      "endpointTypeCode": "IMPORT__IMPORT",
+      "externalRecordType": null,
+      "url": "node-red://fakeseqdb/import__import",
+      "integrationEndpointHeaders": []
+    }
+  ],
+  "__typename": "integration",
+  "tgNodeRedFlow": [
+    {
+      "id": "ad4f0c2608da806a",
+      "type": "tab",
+      "label": "fakeseqdb - FakeSeqDepot"
+    },
+    {
+      "id": "qfwGDssuNG",
+      "type": "http in",
+      "z": "ad4f0c2608da806a",
+      "name": "Format Search Endpoint",
+      "url": "fakeseqdb/import__search_format",
+      "method": "get",
+      "upload": false,
+      "swaggerDoc": "",
+      "x": 120,
+      "y": 150,
+      "wires": [
+        [
+          "q_DNtc1J39"
+        ]
+      ]
+    },
+    {
+      "id": "q_DNtc1J39",
+      "type": "function",
+      "z": "ad4f0c2608da806a",
+      "name": "Helper Fn",
+      "func": "\n//Example Payload Structure:\n/**\n // No Payload\n**/\n\n\n// Example Return Structure \nconst newPayload = {\n    \"title\": \"Circular Sequence Fields\",\n    \"formInputs\": [\n        {\n            \"isRequired\": true,\n            \"fieldType\": \"SelectField\",\n            \"name\": \"status\",\n            \"label\": \"Status\",\n            \"options\": [\n                {\n                    \"label\": \"Complete\",\n                    \"value\": \"complete\"\n                },\n                {\n                    \"label\": \"In Progress\",\n                    \"value\": \"inProgress\"\n                },\n                {\n                    \"label\": \"Still Workin' On It\",\n                    \"value\": \"almostDone\"\n                },\n                {\n                    \"label\": \"Abandoned\",\n                    \"value\": \"abandoned\"\n                }\n            ]\n        },\n        {\n            \"isRequired\": true,\n            \"fieldType\": \"InputField\",\n            \"name\": \"customSearchTerm\",\n            \"label\": \"Custom Search Term\"\n        }\n    ]\n}\nmsg.payload = newPayload;\nreturn msg;\n\n      ",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 320,
+      "y": 150,
+      "wires": [
+        [
+          "eyTKN8YlbV"
+        ]
+      ]
+    },
+    {
+      "id": "eyTKN8YlbV",
+      "type": "http response",
+      "z": "ad4f0c2608da806a",
+      "name": "Response",
+      "statusCode": "",
+      "headers": {},
+      "x": 520,
+      "y": 150,
+      "wires": []
+    },
+    {
+      "id": "slH3rfIFyZ",
+      "type": "http in",
+      "z": "ad4f0c2608da806a",
+      "name": "Search Endpoint",
+      "url": "fakeseqdb/import__search",
+      "method": "post",
+      "upload": false,
+      "swaggerDoc": "",
+      "x": 120,
+      "y": 300,
+      "wires": [
+        [
+          "CDVLsRC5js"
+        ]
+      ]
+    },
+    {
+      "id": "CDVLsRC5js",
+      "type": "function",
+      "z": "ad4f0c2608da806a",
+      "name": "Helper Fn",
+      "func": "\n//Example Payload Structure:\n/**\n (Multiple Types)\n    \n\n// OPTION 1 - Numbered Paging\n{\n    \"searchTerm\": \"kanR\",\n    \"customFields\": {\n        \"status\": \"inProgress\",\n        \"customSearchTerm\": \"someName\"\n    },\n    \"pageNumber\": 1\n} \n\n// OPTION 2 - Token Paging\n{\n    \"searchTerm\": \"kanR\",\n    \"customFields\": {\n        \"status\": \"inProgress\",\n        \"customSearchTerm\": \"someName\"\n    },\n    \"pageToken\": \"1389hf982h2323\"\n} \n**/\n// normally we'd want to do something with the payload coming in (as shown above)\n// however because we are hitting a mock api, we don't \n// actually need to do anything but pass the msg object along\n\nreturn msg;\n\n      ",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 280,
+      "y": 300,
+      "wires": [
+        [
+          "45080e8930f97173"
+        ]
+      ]
+    },
+    {
+      "id": "Z8UhgnbpS0",
+      "type": "http response",
+      "z": "ad4f0c2608da806a",
+      "name": "Response",
+      "statusCode": "",
+      "headers": {},
+      "x": 760,
+      "y": 300,
+      "wires": []
+    },
+    {
+      "id": "weJK7saX5W",
+      "type": "http in",
+      "z": "ad4f0c2608da806a",
+      "name": "Import Endpoint",
+      "url": "fakeseqdb/import__import",
+      "method": "get",
+      "upload": false,
+      "swaggerDoc": "",
+      "x": 100,
+      "y": 480,
+      "wires": [
+        [
+          "u-nzYyfLwy"
+        ]
+      ]
+    },
+    {
+      "id": "u-nzYyfLwy",
+      "type": "function",
+      "z": "ad4f0c2608da806a",
+      "name": "Helper Fn",
+      "func": "\n//Example Payload Structure:\n/**\n \n\"?id=3558997\"\n\nNormally we'd do something with the ID here.\nIn this case because we're hitting a mock api, we don't need to actually structure the query whatsoever\n**/\n\nreturn msg\n",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 260,
+      "y": 480,
+      "wires": [
+        [
+          "b74c323709e1454c",
+          "40ef7482497dd753"
+        ]
+      ]
+    },
+    {
+      "id": "Szzfn7dSg2",
+      "type": "http response",
+      "z": "ad4f0c2608da806a",
+      "name": "Response",
+      "statusCode": "",
+      "headers": {},
+      "x": 760,
+      "y": 480,
+      "wires": []
+    },
+    {
+      "id": "45080e8930f97173",
+      "type": "http request",
+      "z": "ad4f0c2608da806a",
+      "name": "",
+      "method": "GET",
+      "ret": "obj",
+      "paytoqs": "ignore",
+      "url": "https://raw.githubusercontent.com/tnrich/tg-fake-apis/main/FakeSeqDb_search.json",
+      "tls": "",
+      "persist": false,
+      "proxy": "",
+      "authType": "basic",
+      "x": 430,
+      "y": 300,
+      "wires": [
+        [
+          "512b83b365ccbf05"
+        ]
+      ]
+    },
+    {
+      "id": "512b83b365ccbf05",
+      "type": "function",
+      "z": "ad4f0c2608da806a",
+      "name": "SearchApi -> Tg",
+      "func": "const { pageLength, seqs, allResults } = msg.payload\n\nconst newPayload = {\n    \"results\": seqs.map(s => ({ id: s.uuid, name: s.title })),\n    \"totalResults\": allResults,\n    \"pageNumber\": 1,\n    \"pageSize\": pageLength\n}\n\nmsg.payload = newPayload;\nreturn msg;\n\n",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 600,
+      "y": 300,
+      "wires": [
+        [
+          "Z8UhgnbpS0"
+        ]
+      ]
+    },
+    {
+      "id": "b74c323709e1454c",
+      "type": "http request",
+      "z": "ad4f0c2608da806a",
+      "name": "",
+      "method": "GET",
+      "ret": "obj",
+      "paytoqs": "ignore",
+      "url": "https://raw.githubusercontent.com/tnrich/tg-fake-apis/main/FakeSeqDb_import.json",
+      "tls": "",
+      "persist": false,
+      "proxy": "",
+      "authType": "",
+      "x": 410,
+      "y": 480,
+      "wires": [
+        [
+          "5fa247847bda56c7",
+          "34fdeb1de7815760"
+        ]
+      ]
+    },
+    {
+      "id": "5fa247847bda56c7",
+      "type": "function",
+      "z": "ad4f0c2608da806a",
+      "name": "ImportApi -> Tg",
+      "func": "const { description, tags, title, bps, isPlasmid, annotations, functionalUnits } = msg.payload;\n\nconst newPayload = {\n    description,\n    tags: tags.map(t => ({ ...t, name: t.title })),\n    externalReferenceSystem: \"fakedb\",\n    externalReferenceId: \"289hf9h\",\n    externalReferenceType: \"DNA_SEQUENCE\",\n    externalReferenceUrl: \"https://fakedb.org/DNA_SEQUENCE/289hf9h\",\n    name: title,\n    sequence: bps,\n    circular: isPlasmid,\n    features: annotations,\n    parts: functionalUnits,\n};\nmsg.payload = newPayload;\nreturn msg;\n",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": 600,
+      "y": 480,
+      "wires": [
+        [
+          "Szzfn7dSg2",
+          "fd09e4b611f067b0"
+        ]
+      ]
+    },
+    {
+      "id": "34fdeb1de7815760",
+      "type": "debug",
+      "z": "ad4f0c2608da806a",
+      "name": "",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "true",
+      "targetType": "full",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 610,
+      "y": 400,
+      "wires": []
+    },
+    {
+      "id": "fd09e4b611f067b0",
+      "type": "debug",
+      "z": "ad4f0c2608da806a",
+      "name": "",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "true",
+      "targetType": "full",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 790,
+      "y": 400,
+      "wires": []
+    },
+    {
+      "id": "40ef7482497dd753",
+      "type": "debug",
+      "z": "ad4f0c2608da806a",
+      "name": "",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "true",
+      "targetType": "full",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 370,
+      "y": 400,
+      "wires": []
+    }
+  ]
+}
